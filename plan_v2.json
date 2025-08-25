@@ -1,0 +1,195 @@
+[
+  {
+    "step": "Read and Analyze Spring Boot Backend Dependencies and Boilerplate",
+    "sub_steps": [
+      "Read /home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/pom.xml to review Spring Boot dependencies (web, data-jpa, validation, mysql, lombok).",
+      "Review the provided setup in src/main/java and src/main/resources/application.properties to understand existing configuration.",
+      "Ensure MySQL is configured and no H2 references are used; note lombok is available for models."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/pom.xml"
+    ],
+    "description": "Establishes the foundation for backend work by understanding dependencies, ensuring correct configuration, and setting the context for entity, repository, service, and controller development."
+  },
+  {
+    "step": "Implement Entity Classes for ParkingSlot and Booking",
+    "sub_steps": [
+      "Create ParkingSlot entity with fields: id, slotNumber (unique), slotType, isAvailable, hourlyRate.",
+      "Create Booking entity with fields: id, userId, parkingSlotId (with ManyToOne relationship), vehicleNumber, startTime, endTime, totalCost, status.",
+      "Use jakarta.persistence annotations for entity mapping.",
+      "Add validation annotations where appropriate (e.g., NotNull, NotEmpty)."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/model/ParkingSlot.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/model/Booking.java"
+    ],
+    "files_to_edit": [],
+    "description": "Defines the database structure and relationships central to the Parking Slot Booking System, directly supporting all backend data operations."
+  },
+  {
+    "step": "Create JPA Repository Interfaces",
+    "sub_steps": [
+      "Create ParkingSlotRepository extending JpaRepository.",
+      "Create BookingRepository extending JpaRepository.",
+      "Add custom query methods as necessary (e.g., findByIsAvailableTrue, findByUserId, etc)."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/repository/ParkingSlotRepository.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/repository/BookingRepository.java"
+    ],
+    "files_to_edit": [],
+    "description": "Enables data access and query handling for ParkingSlot and Booking entities."
+  },
+  {
+    "step": "Implement Service Layer with Business Logic and Validation",
+    "sub_steps": [
+      "Create ParkingSlotService for slot management (CRUD, check unique slotNumber, list available slots, etc).",
+      "Create BookingService for booking logic: total cost calculation, booking creation with validations (availability, time, vehicleNumber), updates/cancellations, slot status updates.",
+      "Include error handling and custom exceptions for validation errors (e.g., SlotNotAvailableException, BookingValidationException)."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/service/ParkingSlotService.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/service/BookingService.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/exception/SlotNotAvailableException.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/exception/BookingValidationException.java"
+    ],
+    "files_to_edit": [],
+    "description": "Encapsulates business rules and logic for bookings and slots; supports controller layer and helps unit testing actual logic."
+  },
+  {
+    "step": "Implement REST Controllers and DTOs",
+    "sub_steps": [
+      "Create ParkingSlotController with endpoints: GET /api/slots, GET /api/slots/available, POST /api/slots, PUT /api/slots/{id}.",
+      "Create BookingController with endpoints: POST /api/bookings, GET /api/bookings/user/{userId}, PUT /api/bookings/{id}/cancel.",
+      "Use DTOs for request/response mapping if needed (optional for simplicity).",
+      "Map Validation and Business Exceptions to proper HTTP status codes using @ControllerAdvice.",
+      "Add CORS configuration to allow requests from frontend."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/controller/ParkingSlotController.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/controller/BookingController.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/config/CorsConfig.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/main/java/com/examly/springapp/exception/GlobalExceptionHandler.java"
+    ],
+    "files_to_edit": [],
+    "description": "Exposes the RESTful API for backend, connects service layer to external clients and implements proper error responses. Supports all backend test cases."
+  },
+  {
+    "step": "Implement JUnit Test Cases for Backend",
+    "sub_steps": [
+      "For each backend test case from Test Cases JSON, create or update corresponding *Test.java files in the test/java/com/examly/springapp folder:",
+      "- getAllParkingSlotsTest: Test GET /api/slots endpoint, verify HTTP 200 & correct data.",
+      "- createBookingTest: Test POST /api/bookings endpoint for valid flow, cost calculation, slot status.",
+      "- bookingValidationTest: Test booking creation validations (invalid slot, end before start, empty vehicleNumber, unavailable slot).",
+      "- getUserBookingsTest: Test GET /api/bookings/user/{userId} endpoint for correct filtering.",
+      "- cancelBookingTest: Test PUT /api/bookings/{id}/cancel endpoint for confirmed/cancelled scenarios.",
+      "Use @SpringBootTest, MockMvc, and repository/service mocks as needed.",
+      "Seed sample data in @BeforeEach or @BeforeAll for integration."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/test/java/com/examly/springapp/controller/ParkingSlotControllerTest.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/test/java/com/examly/springapp/controller/BookingControllerTest.java"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/springapp/src/test/java/com/examly/springapp/ParkingSlotBookingSystemApplicationTests.java"
+    ],
+    "description": "Implements all required JUnit test cases, each mapped directly to JSON requirements for backend; ensures functional and validation correctness."
+  },
+  {
+    "step": "Compile and Run Backend Tests (Spring Boot, JUnit)",
+    "sub_steps": [
+      "Run mvn clean compile -q -Dspring.main.banner-mode=off for compilation check.",
+      "Run mvn test -q -Dspring.main.banner-mode=off to execute JUnit tests and verify backend behavior."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Validates that backend code compiles and all test cases pass, confirming backend feature completion."
+  },
+  {
+    "step": "Read and Analyze React Frontend Dependencies and Project Structure",
+    "sub_steps": [
+      "Read /home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/package.json to verify React version, dependencies.",
+      "Review /home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/App.js, index.js and overall src/ structure.",
+      "Identify locations for components (components/), utilities (utils/), and styling."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/package.json"
+    ],
+    "description": "Establishes the context for frontend work, ensuring all dependencies are correct for component and test development."
+  },
+  {
+    "step": "Implement Utility/API Integration and Constants for React",
+    "sub_steps": [
+      "Create utils/api.js for all backend API calls to /api/slots, /api/bookings, etc.",
+      "Create utils/constants.js for reusable constants (API base URL, slot types, etc).",
+      "Add simple helper functions if needed (e.g., for time formatting, cost calculation)."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/utils/api.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/utils/constants.js"
+    ],
+    "files_to_edit": [],
+    "description": "Supports all components with consistent API and utility functions, enabling API mocking for tests."
+  },
+  {
+    "step": "Create and Style React Components for Parking Slot Display, Booking, and User Booking Management",
+    "sub_steps": [
+      "Create components/SlotList.js for listing and filtering slots, as per features.",
+      "Create components/SlotDetails.js for slot info and status indicator.",
+      "Create components/BookingForm.js for booking creation, validation, and cost display.",
+      "Create components/UserBookings.js for displaying and managing user's bookings.",
+      "Implement required CSS: variables, layout containers, form/button classes, as per style guide.",
+      "Update App.js to render these and manage application state.",
+      "Use React hooks (useState, useEffect) for state management.",
+      "Hardcode userId=1 for all bookings as per requirements."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/SlotList.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/SlotDetails.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/BookingForm.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/UserBookings.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/SlotList.css",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/BookingForm.css",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/UserBookings.css"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/App.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/App.css"
+    ],
+    "description": "Builds all required UX for slot viewing, booking creation, and booking management, meeting all user stories and feature lists for the frontend."
+  },
+  {
+    "step": "Implement React Component Jest Test Cases as per Provided Tests JSON",
+    "sub_steps": [
+      "For each test case in the Test Cases JSON, create or update a *.test.js file in src/components/:",
+      "- renderSlotListTest \u2192 SlotList.test.js: Mock diverse slot data, verify list display, Book button, and filtering.",
+      "- bookingFormValidationTest \u2192 BookingForm.test.js: Test form validation rules for vehicle number, times, and cost calculation.",
+      "- bookingCreationTest \u2192 BookingForm.test.js: Mock API for successful booking, verify correct params, UI update, state, and loading state.",
+      "- userBookingsDisplayTest \u2192 UserBookings.test.js: Mock API response with various bookings, verify detail display, status, sorting, and Cancel button visibility.",
+      "- bookingCancellationTest \u2192 UserBookings.test.js: Mock API for cancellation, verify call, UI update, and loading state.",
+      "Use React Testing Library patterns, unique data-testid attributes, proper mocking of APIs.",
+      "Ensure all error messages, validation, and async behaviors match test requirements."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/SlotList.test.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/BookingForm.test.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/f9d088b3-cb5e-41fc-a6a2-c33a7788937c/reactapp/src/components/UserBookings.test.js"
+    ],
+    "files_to_edit": [],
+    "description": "Implements all required Jest test cases with proper scoping, mocking, and error-state validation as specified in the Test Cases JSON. Each test directly supports a named requirement."
+  },
+  {
+    "step": "Compile and Run React Frontend (Build, Lint, Jest Tests)",
+    "sub_steps": [
+      "Run npm install in the reactapp directory to install dependencies.",
+      "Run npm run build to check/compile the project.",
+      "Run npx eslint src/ --fix to auto-fix lint issues.",
+      "Run npm run test:ci to execute ALL frontend Jest tests according to the provided CI script."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Guarantees that all frontend code is buildable, styled according to guidelines, linted, and that all test cases (as per supplied test JSON) are passing."
+  }
+]

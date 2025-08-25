@@ -1,0 +1,42 @@
+.user-bookings {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.user-bookings h2 {
+  text-align: center;
+  color: #00b894;
+  margin-bottom: 20px;
+}
+
+.booking-card {
+  border-radius: 15px;
+  padding: 15px;
+  margin: 10px 0;
+  background: linear-gradient(135deg, #dfe6e9, #b2bec3);
+  color: #333;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.booking-card p {
+  margin: 5px 0;
+}
+
+.booking-card button {
+  padding: 8px 15px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(45deg, #fab1a0, #ff7675);
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.booking-card button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+

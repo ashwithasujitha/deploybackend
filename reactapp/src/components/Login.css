@@ -1,0 +1,64 @@
+/* Login.css */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #6b73ff, #000dff);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+form {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+input, select {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus, select:focus {
+  border-color: #000dff;
+  box-shadow: 0 0 5px rgba(0, 13, 255, 0.5);
+}
+
+button {
+  padding: 12px;
+  background-color: #000dff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #6b73ff;
+}
+
+p {
+  font-size: 14px;
+  text-align: center;
+  margin: 0;
+}
+
